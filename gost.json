@@ -1,0 +1,24 @@
+{
+    "Debug": true,
+    "Routes": 
+	    [
+        {"Retries": 0, "ServeNodes": ["socks5://mouren:mouren@:6666"]},
+	{"Retries": 0, "ServeNodes": ["socks5://:8888"]}
+	    ]
+}
+
+
+
+
+
+#"Routes":[ ]中间不要有逗号，否则不生效 （最后一条规则末尾不加,）
+#多IP多端口监听，更改IP：端口
+#{
+#    "Debug": true,
+#    "Routes": 
+#	     [
+#        {"Retries": 0, "ServeNodes": ["socks5://mouren:mouren@:6666"]}，
+#        {"Retries": 0, "ServeNodes": ["socks5://mouren:mouren@:6666"]}，
+#        {"Retries": 0, "ServeNodes": ["socks5://mouren:mouren@:6666"]}
+#        ]
+#}
