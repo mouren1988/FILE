@@ -2,11 +2,11 @@
 
 # 确保脚本以root用户运行
 if [ "$(id -u)" -ne 0 ]; then
-  echo "此脚本需要以 root 权限运行，请使用 sudo 或以 root 用户执行。" >&2
+  echo -e "\e[31m此脚本需要以 root 权限运行，请使用 sudo 或以 root 用户执行。\e[0m" >&2
   exit 1
 fi
 
-echo "开始配置内核参数..."
+echo -e "\e[32m开始配置内核参数...\e[0m"
 
 # 写入 /etc/sysctl.conf
 cat <<EOF > /etc/sysctl.conf
@@ -82,4 +82,4 @@ EOF
 # 重新加载sysctl配置
 sysctl -p
 
-echo "内核参数配置完成！"
+echo -e "\e[32m内核参数配置完成！\e[0m"
