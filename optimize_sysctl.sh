@@ -83,3 +83,4 @@ EOF
 sysctl -p
 
 echo -e "\e[32m内核参数配置完成！\e[0m"
+
