@@ -1,0 +1,16 @@
+# deb https://mirrors.aliyun.com/debian bullseye main
+
+deb https://mirrors.aliyun.com/debian bullseye main
+deb-src https://mirrors.aliyun.com/debian bullseye main
+
+deb https://mirrors.aliyun.com/debian-security bullseye-security main
+deb-src https://mirrors.aliyun.com/debian-security bullseye-security main
+
+# bullseye-updates, to get updates before a point release is made;
+# see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
+deb https://mirrors.aliyun.com/debian bullseye-updates main
+deb-src https://mirrors.aliyun.com/debian bullseye-updates main
+
+# bullseye-backports, previously on backports.debian.org
+deb https://mirrors.aliyun.com/debian bullseye-backports main
+deb-src https://mirrors.aliyun.com/debian bullseye-backports main
