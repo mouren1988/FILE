@@ -1,0 +1,6 @@
+# 自定义直连列表
+
+# immortalwrt
+DOMAIN-SUFFIX,mirrors.vsean.net
+DOMAIN-SUFFIX,downloads.immortalwrt.org
+DOMAIN-SUFFIX,immortalwrt.kyarucloud.moe
