@@ -1,0 +1,224 @@
+mixed-port: 7890
+allow-lan: true
+tcp-concurrent: true 
+unified-delay: true
+bind-address: '*'
+mode: rule
+log-level: info
+external-controller: '127.0.0.1:9090'
+dns:
+    enable: true
+    ipv6: false
+    default-nameserver: [223.5.5.5, 119.29.29.29, '[2400:3200::1]:53', '[240C::6666]:53']
+    enhanced-mode: fake-ip
+    fake-ip-range: 198.18.0.1/16
+    use-hosts: true
+    nameserver: ['https://1.12.12.12/dns-query', 'https://120.53.53.53/dns-query', 'https://223.5.5.5/dns-query', 'https://223.6.6.6/dns-query', 'https://dns.ipv6dns.com/dns-query']
+    proxy-server-nameserver: ['https://1.12.12.12/dns-query', 'https://120.53.53.53/dns-query', 'https://223.5.5.5/dns-query', 'https://223.6.6.6/dns-query', 'https://dns.ipv6dns.com/dns-query']    
+    fallback: ['8.8.8.8','1.1.1.1']
+    fallback-filter: { geoip: true, geoip-code: CN, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
+
+proxies:
+
+proxy-groups:
+    - { name: ✅ 选择节点, type: select, proxies: [♻️ 自动选择, ] }
+    - { name: ♻️ 自动选择, type: fallback, proxies: [], url: 'http://www.gstatic.com/generate_204', interval: 30 }
+    - { name: 🚀 Telegram, type: select, proxies: [✅ 选择节点, ] }
+    - { name: 💬 ChatGPT, type: select, proxies: [✅ 选择节点, ] }
+    #- { name: NETFLIX, type: select, proxies: [✅ 选择节点, ] }
+    - { name: 🎮 海外游戏平台, type: select, proxies: [DIRECT, ✅ 选择节点, ] }
+    - { name: 📺 Bilibili哔哩哔哩, type: select, proxies: [DIRECT, ✅ 选择节点] }
+    - { name: ⛔️ 广告屏蔽, type: select, proxies: [REJECT, DIRECT,/过滤/] }
+    #- { name: 🎯 全球直连, type: select, proxies: [DIRECT,] }
+
+rule-providers:
+    reject: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt', path: ./ruleset/reject.yaml, interval: 86400 }
+    gfw: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt', path: ./ruleset/gfw.yaml, interval: 86400 }
+    direct: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt', path: ./ruleset/direct.yaml, interval: 86400 }
+    cncidr: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt', path: ./ruleset/cncidr.yaml, interval: 86400 }
+
+rules:
+    #轮子
+    - 'DOMAIN-KEYWORD,falun,REJECT,no-resolve'
+    - 'DOMAIN-KEYWORD,minghui,REJECT,no-resolve'
+    - 'DOMAIN-SUFFIX,falunaz.net,REJECT,no-resolve'
+    - 'DOMAIN-SUFFIX,wujieliulan.com,REJECT,no-resolve'
+    - 'DOMAIN-SUFFIX,mhradio.org,REJECT,no-resolve'
+    - 'DOMAIN-SUFFIX,dongtaiwang.com,REJECT,no-resolve'
+    - 'DOMAIN-SUFFIX,epochtimes.com,REJECT,no-resolve'
+    - 'DOMAIN-SUFFIX,ntdtv.com,REJECT,no-resolve'
+    #Google系
+    - 'DOMAIN-SUFFIX,xn--ngstr-lra8j.com,✅ 选择节点,no-resolve'
+    #推送地址直连
+    - 'DOMAIN-KEYWORD,mtalk.google.com,DIRECT,no-resolve'    
+    - 'DOMAIN-KEYWORD,google,✅ 选择节点,no-resolve'
+    - 'DOMAIN-KEYWORD,gmail,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,youtube.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,youtu.be,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,gvt1.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,gvt2.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,chromium.org,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,gstatic.com,✅ 选择节点,no-resolve'
+    
+    - 'IP-CIDR,64.233.177.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,64.233.186.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,64.233.187.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,64.233.188.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,64.233.189.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,74.125.23.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,74.125.24.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,74.125.28.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,74.125.127.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,74.125.137.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,74.125.203.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,74.125.204.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,74.125.206.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,108.177.125.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,142.250.4.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,142.250.10.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,142.250.31.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,142.250.96.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,172.217.194.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,172.217.218.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,172.217.219.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,172.253.63.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,172.253.122.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,173.194.175.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,173.194.218.188/32,✅ 选择节点,no-resolve'
+    - 'IP-CIDR,209.85.233.188/32,✅ 选择节点,no-resolve'
+    - 'DOMAIN-KEYWORD,tron,✅ 选择节点'     
+    - 'DOMAIN-KEYWORD,token,✅ 选择节点'    
+    - 'DOMAIN-SUFFIX,okx.com,✅ 选择节点'
+    - 'DOMAIN-SUFFIX,binance.com,✅ 选择节点'        
+    - 'DOMAIN-KEYWORD,amazon,✅ 选择节点'
+    - 'DOMAIN-KEYWORD,github,✅ 选择节点'
+    - 'DOMAIN-SUFFIX,git.io,✅ 选择节点'
+    - 'DOMAIN-KEYWORD,facebook,✅ 选择节点'
+    - 'DOMAIN-SUFFIX,fb.me,✅ 选择节点'
+    - 'DOMAIN-SUFFIX,fbcdn.net,✅ 选择节点'
+    - 'DOMAIN-KEYWORD,twitter,✅ 选择节点'
+    - 'DOMAIN-KEYWORD,instagram,✅ 选择节点'
+    - 'DOMAIN-KEYWORD,dropbox,✅ 选择节点'
+    - 'DOMAIN-SUFFIX,twimg.com,✅ 选择节点'
+    - 'DOMAIN-KEYWORD,blogspot,✅ 选择节点'
+    - 'DOMAIN-KEYWORD,whatsapp,✅ 选择节点'
+    - 'DOMAIN-KEYWORD,intl,✅ 选择节点,no-resolve'
+    - 'DOMAIN-KEYWORD,yysub,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,alibabacloud.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,nodeseek.com,✅ 选择节点,no-resolve'       
+    - 'DOMAIN-SUFFIX,tiktokv.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,tiktokcdn.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-KEYWORD,linkedin,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,pexpay.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,token.im,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,changenow.io,✅ 选择节点,no-resolve'
+    #Telegram
+    - 'DOMAIN-SUFFIX,t.me,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,tdesktop.com,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telegra.ph,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telegram.me,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telegram.org,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telesco.pe,🚀 Telegram,no-resolve'
+    - 'IP-CIDR,91.108.0.0/16,🚀 Telegram,no-resolve'
+    - 'IP-CIDR,109.239.140.0/24,🚀 Telegram,no-resolve'
+    - 'IP-CIDR,149.154.160.0/20,🚀 Telegram,no-resolve'
+    - 'IP-CIDR6,2001:67c:4e8::/48,🚀 Telegram,no-resolve'
+    - 'IP-CIDR6,2001:b28:f23d::/48,🚀 Telegram,no-resolve'
+    - 'IP-CIDR6,2001:b28:f23f::/48,🚀 Telegram,no-resolve'
+    #ChatGPT
+    - 'DOMAIN-SUFFIX,openai.com,💬 ChatGPT,no-resolve'
+    - 'DOMAIN-SUFFIX,ChatGPT.com,💬 ChatGPT,no-resolve'
+    #微软网站
+    - 'DOMAIN-SUFFIX,cn.bing.com,DIRECT'
+    - 'DOMAIN-SUFFIX,bing.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,bingapis.com,✅ 选择节点,no-resolve'
+    - 'DOMAIN-SUFFIX,azure.cn,DIRECT'
+    - 'DOMAIN-SUFFIX,copilot.microsoft.com,✅ 选择节点,no-resolve'  
+    - 'DOMAIN-SUFFIX,microsoft.com,DIRECT'
+    - 'DOMAIN-SUFFIX,windows.net,DIRECT'
+    - 'DOMAIN-SUFFIX,windowsupdate.com,DIRECT'
+    - 'DOMAIN-SUFFIX,mzstatic.com,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,aaplimg.com,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,me.com,DIRECT,no-resolve'
+    - 'DOMAIN-KEYWORD,apple,DIRECT,no-resolve'
+    - 'DOMAIN-KEYWORD,icloud,DIRECT,no-resolve'
+    - 'DOMAIN-KEYWORD,mzstatic,DIRECT,no-resolve'
+    - 'DOMAIN-KEYWORD,adobe,DIRECT,no-resolve'
+    - 'IP-CIDR,0.0.0.0/8,DIRECT,no-resolve'
+    - 'IP-CIDR,10.0.0.0/8,DIRECT,no-resolve'
+    - 'IP-CIDR,100.64.0.0/10,DIRECT,no-resolve'
+    - 'IP-CIDR,127.0.0.0/8,DIRECT,no-resolve'
+    - 'IP-CIDR,169.254.0.0/16,DIRECT,no-resolve'
+    - 'IP-CIDR,172.16.0.0/12,DIRECT,no-resolve'
+    - 'IP-CIDR,192.0.0.0/24,DIRECT,no-resolve'
+    - 'IP-CIDR,192.0.2.0/24,DIRECT,no-resolve'
+    - 'IP-CIDR,192.88.99.0/24,DIRECT,no-resolve'
+    - 'IP-CIDR,192.168.0.0/16,DIRECT,no-resolve'
+    - 'IP-CIDR,198.18.0.0/15,DIRECT,no-resolve'
+    - 'IP-CIDR,198.51.100.0/24,DIRECT,no-resolve'
+    - 'IP-CIDR,203.0.113.0/24,DIRECT,no-resolve'
+    - 'IP-CIDR,224.0.0.0/3,DIRECT,no-resolve'
+    - 'IP-CIDR6,::/127,DIRECT,no-resolve'
+    - 'IP-CIDR6,fc00::/7,DIRECT,no-resolve'
+    - 'IP-CIDR6,fe80::/10,DIRECT,no-resolve'
+    - 'IP-CIDR6,ff00::/8,DIRECT,no-resolve'
+
+    #Netflix
+    #- 'DOMAIN-KEYWORD,netflix,NETFLIX,no-resolve'
+    #- 'DOMAIN-SUFFIX,fast.com,NETFLIX,no-resolve'
+    #- 'DOMAIN-SUFFIX,nflxext.com,NETFLIX,no-resolve'
+    #- 'DOMAIN-SUFFIX,nflximg.com,NETFLIX,no-resolve'
+    #- 'DOMAIN-SUFFIX,nflximg.net,NETFLIX,no-resolve'
+    #- 'DOMAIN-SUFFIX,nflxso.net,NETFLIX,no-resolve'
+    #- 'DOMAIN-SUFFIX,nflxvideo.net,NETFLIX,no-resolve'
+    #🎮 海外游戏平台，steam的下载域名直连
+    - 'DOMAIN-SUFFIX,steamserver.net,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,cm.steampowered.com,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,dl.steam.clngaa.com,DIRECT,no-resolve'
+    - 'DOMAIN-KEYWORD,steam,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,cloudsync-prod.s3.amazonaws.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,eaasserts-a.akamaihd.net,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,origin-a.akamaihd.net,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,originasserts.akamaized.net,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,rtm.tnt-ea.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,origin.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,ea.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,gamepass.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-KEYWORD,xbox,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,helpshift.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,paragon.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,unrealengine.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,epicgames.com,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-SUFFIX,epicgames.dev,🎮 海外游戏平台,no-resolve'
+    - 'DOMAIN-KEYWORD,bili,📺 Bilibili哔哩哔哩,no-resolve'
+    # 自定义直连列表
+    - 'DOMAIN-SUFFIX,mirrors.vsean.net,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,downloads.immortalwrt.org,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,immortalwrt.kyarucloud.moe,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,ddns.91ray.com,DIRECT,no-resolve'
+    - 'DOMAIN,cn.download.nvidia.com,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,pttime.org,DIRECT'
+    - 'DOMAIN-SUFFIX,qq.com,DIRECT,no-resolve' 
+    - 'DOMAIN-SUFFIX,weibo.com,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,douyin.com,DIRECT,no-resolve'    
+    - 'DOMAIN-SUFFIX,kuaishou.com,DIRECT,no-resolve' 
+    - 'DOMAIN-SUFFIX,xiaohongshu.com,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,meituan.com,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,taobao.com,DIRECT,no-resolve'    
+    - 'DOMAIN-SUFFIX,pinduoduo.com,DIRECT,no-resolve' 
+    - 'DOMAIN-SUFFIX,jingdong.com,DIRECT,no-resolve'  
+    - 'DOMAIN-SUFFIX,douyu.com,DIRECT,no-resolve'    
+    - 'DOMAIN-SUFFIX,huya.com,DIRECT,no-resolve'     
+    - 'DOMAIN-KEYWORD,feishu,DIRECT,no-resolve'
+    - 'DOMAIN-KEYWORD,gov.,DIRECT,no-resolve'
+    - 'DOMAIN-KEYWORD,.cn,DIRECT,no-resolve'
+    #广告域名白名单
+    - 'DOMAIN,cdn.staticfile.net,DIRECT,no-resolve'   
+    - 'RULE-SET,direct,DIRECT,no-resolv'
+    - 'RULE-SET,cncidr,DIRECT,no-resolve'
+    - 'RULE-SET,reject,⛔️ 广告屏蔽'
+    - 'RULE-SET,gfw,✅ 选择节点'
+    - 'GEOIP,LAN,DIRECT,no-resolve'
+    - 'GEOIP,CN,DIRECT,no-resolve'
+    - 'MATCH,✅ 选择节点'    
