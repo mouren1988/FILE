@@ -32,10 +32,9 @@ proxy-groups:
     #- { name: 🎯 全球直连, type: select, proxies: [DIRECT,] }
 
 rule-providers:
-    reject: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt', path: ./ruleset/reject.yaml, interval: 86400 }
-    gfw: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt', path: ./ruleset/gfw.yaml, interval: 86400 }
-    direct: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt', path: ./ruleset/direct.yaml, interval: 86400 }
-    cncidr: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt', path: ./ruleset/cncidr.yaml, interval: 86400 }
+    direct: { type: http, behavior: domain, url: 'https://hub.gitmirror.com/raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt', interval: 604800 }
+    reject: { type: http, behavior: domain, url: 'https://hub.gitmirror.com/raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt', interval: 604800 }
+    gfw: { type: http, behavior: domain, url: 'https://hub.gitmirror.com/raw.githubusercontent.com/Loyalsoldier/clash-rules/release/gfw.txt', interval: 604800 }
 
 rules:
     #轮子
@@ -113,18 +112,43 @@ rules:
     - 'DOMAIN-SUFFIX,token.im,✅ 选择节点,no-resolve'
     - 'DOMAIN-SUFFIX,changenow.io,✅ 选择节点,no-resolve'
     #Telegram
+    - 'DOMAIN-SUFFIX,api.imem.app,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,api.swiftgram.app,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,cdn-telegram.org,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,comments.app,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,contest.com,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,graph.org,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,legra.ph,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,mbrx.app,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,quiz.directory,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,stel.com,🚀 Telegram,no-resolve'
     - 'DOMAIN-SUFFIX,t.me,🚀 Telegram,no-resolve'
     - 'DOMAIN-SUFFIX,tdesktop.com,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telega.one,🚀 Telegram,no-resolve'
     - 'DOMAIN-SUFFIX,telegra.ph,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telegram-cdn.org,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telegram.dog,🚀 Telegram,no-resolve'
     - 'DOMAIN-SUFFIX,telegram.me,🚀 Telegram,no-resolve'
     - 'DOMAIN-SUFFIX,telegram.org,🚀 Telegram,no-resolve'
-    - 'DOMAIN-SUFFIX,telesco.pe,🚀 Telegram,no-resolve'
-    - 'IP-CIDR,91.108.0.0/16,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telegram.space,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,telegramdownload.com,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,tg.dev,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,tx.me,🚀 Telegram,no-resolve'
+    - 'DOMAIN-SUFFIX,usercontent.dev,🚀 Telegram,no-resolve'
+    - 'DOMAIN-KEYWORD,nicegram,🚀 Telegram,no-resolve'
+    - 'DOMAIN-KEYWORD,swiftgram,🚀 Telegram,no-resolve'
+    - 'DOMAIN-KEYWORD,ayugram,🚀 Telegram,no-resolve'
     - 'IP-CIDR,109.239.140.0/24,🚀 Telegram,no-resolve'
+    - 'IP-CIDR,5.28.192.0/18,🚀 Telegram,no-resolve'
+    - 'IP-CIDR,91.108.0.0/16,🚀 Telegram,no-resolve'
+    - 'IP-CIDR,95.161.64.0/20,🚀 Telegram,no-resolve'
     - 'IP-CIDR,149.154.160.0/20,🚀 Telegram,no-resolve'
+    - 'IP-CIDR,185.76.151.0/24,🚀 Telegram,no-resolve'
     - 'IP-CIDR6,2001:67c:4e8::/48,🚀 Telegram,no-resolve'
-    - 'IP-CIDR6,2001:b28:f23d::/48,🚀 Telegram,no-resolve'
+    - 'IP-CIDR6,2001:b28:f23c::/47,🚀 Telegram,no-resolve'
     - 'IP-CIDR6,2001:b28:f23f::/48,🚀 Telegram,no-resolve'
+    - 'IP-CIDR6,2a0a:f280::/32,🚀 Telegram,no-resolve'
+
     #ChatGPT
     - 'DOMAIN-SUFFIX,openai.com,💬 ChatGPT,no-resolve'
     - 'DOMAIN-SUFFIX,ChatGPT.com,💬 ChatGPT,no-resolve'
@@ -213,12 +237,12 @@ rules:
     - 'DOMAIN-KEYWORD,feishu,DIRECT,no-resolve'
     - 'DOMAIN-KEYWORD,gov.,DIRECT,no-resolve'
     - 'DOMAIN-KEYWORD,.cn,DIRECT,no-resolve'
-    #广告域名白名单
     - 'DOMAIN,cdn.staticfile.net,DIRECT,no-resolve'   
-    - 'RULE-SET,direct,DIRECT,no-resolv'
-    - 'RULE-SET,cncidr,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,pttime.org,DIRECT'
+    #广告域名白名单
     - 'RULE-SET,reject,⛔️ 广告屏蔽'
     - 'RULE-SET,gfw,✅ 选择节点'
+    - 'RULE-SET,direct,DIRECT,no-resolv'
     - 'GEOIP,LAN,DIRECT,no-resolve'
     - 'GEOIP,CN,DIRECT,no-resolve'
     - 'MATCH,✅ 选择节点'    
