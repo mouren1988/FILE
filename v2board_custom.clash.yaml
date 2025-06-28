@@ -29,7 +29,7 @@ proxy-groups:
     - { name: 🎮 海外游戏平台, type: select, proxies: [DIRECT, ✅ 选择节点, ] }
     - { name: 📺 Bilibili哔哩哔哩, type: select, proxies: [DIRECT, ✅ 选择节点] }
     - { name: ⛔️ 广告屏蔽, type: select, proxies: [REJECT, DIRECT,/过滤/] }
-    - { name: 🎯 推荐使用 91ray.com 稳定高速机场, type: select, proxies: ["🎈 免费体验", "🎈 支持ChatGPT", "🎈 解锁TikTok"}
+    - { name: 📢 九一加速 | 91ray.com, type: select, proxies: [DIRECT,/过滤/] }
 
 rule-providers:
     direct: { type: http, behavior: domain, url: 'https://hub.gitmirror.com/raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt', interval: 604800 }
